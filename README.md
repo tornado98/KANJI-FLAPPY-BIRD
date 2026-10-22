@@ -16,4 +16,11 @@ A classic Flappy Bird-style arcade game with an educational twist! Test your ref
 
 ## 🕹️ Live Demo
 
-Play the game here: [Insert your Vercel or GitHub Pages link later]
+Play the game online here:
+👉 [Kanji Flappy Bird on Streamlit](https://kanji-flappy-bird-2q4mdq6tbqzutsqxzbbfmq.streamlit.app/)
+
+## 🛠️ Tech Stack
+
+- Python
+- Streamlit
+- JavaScript
