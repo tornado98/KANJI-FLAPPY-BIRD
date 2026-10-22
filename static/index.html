@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baby Seal Kanji Diver - Pro Modular Edition</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+JP:wght@700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+
+    <div id="game-container">
+      <header id="game-header">
+        <div class="header-left">
+          <span class="status-indicator"></span>
+          <span class="game-brand">SEAL KANJI DIVER</span>
+          <span class="badge-version">v3.5 PRO MODULAR</span>
+        </div>
+        <div class="header-right">
+          <button id="btn-audio-toggle" class="header-btn" title="Toggle Sound">
+            <span id="audio-icon">🔊</span> AUDIO
+          </button>
+          <button
+            id="btn-fullscreen"
+            class="header-btn"
+            title="Toggle Fullscreen"
+          >
+            ⛶ FULLSCREEN
+          </button>
+        </div>
+      </header>
+
+      <div id="wrapper">
+        <canvas id="sealCanvas" width="1180" height="720" tabindex="1"></canvas>
+
+        <div id="instructions-overlay">
+          <div class="control-item">
+            <span class="keycap">SPACE</span><span class="key-label">Swim</span>
+          </div>
+          <span class="divider">•</span>
+          <div class="control-item">
+            <span class="keycap">SHIFT</span><span class="key-label">Dash</span>
+          </div>
+          <span class="divider">•</span>
+          <div class="control-item">
+            <span class="keycap">F / R-Click</span
+            ><span class="key-label">Shoot Kanji</span>
+          </div>
+          <span class="divider">•</span>
+          <div class="control-item">
+            <span class="keycap">ESC / P</span
+            ><span class="key-label">Pause</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UI Controls Interaction -->
+    <script>
+      const fsBtn = document.getElementById("btn-fullscreen");
+      fsBtn.addEventListener("click", () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+          fsBtn.innerText = "⤓ EXIT FULLSCREEN";
+        } else {
+          if (document.exitFullscreen) document.exitFullscreen();
+          fsBtn.innerText = "⛶ FULLSCREEN";
+        }
+      });
+
+      const audioBtn = document.getElementById("btn-audio-toggle");
+      const audioIcon = document.getElementById("audio-icon");
+      let isMuted = false;
+      audioBtn.addEventListener("click", () => {
+        isMuted = !isMuted;
+        if (isMuted) {
+          audioIcon.innerText = "🔇";
+          audioBtn.classList.add("muted");
+          if (typeof actx !== "undefined" && actx && actx.state === "running")
+            actx.suspend();
+        } else {
+          audioIcon.innerText = "🔊";
+          audioBtn.classList.remove("muted");
+          if (typeof actx !== "undefined" && actx && actx.state === "suspended")
+            actx.resume();
+        }
+      });
+    </script>
+
+    <!-- Strict Modular Script Hierarchy -->
+    <script src="js/constants.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/database.js"></script>
+
+    <!-- Entities -->
+    <script src="js/characters/base_entity.js"></script>
+    <script src="js/characters/seal.js"></script>
+    <script src="js/characters/patrick.js"></script>
+    <script src="js/characters/squidward.js"></script>
+    <script src="js/characters/spongebob.js"></script>
+    <script src="js/characters/plankton.js"></script>
+    <script src="js/characters/mr_krabs.js"></script>
+
+    <!-- Engine Modules -->
+    <script src="js/ui.js"></script>
+    <script src="js/collision.js"></script>
+    <script src="js/game.js"></script>
+  </body>
+</html>
